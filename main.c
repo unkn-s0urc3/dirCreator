@@ -15,7 +15,6 @@ int create_directory(const char *path) {
 
     // Try to create the folder
     if (CreateDirectory(path, NULL)) {
-        printf("Directory '%s' created successfully!\n", path);
         return 1;  // Folder created successfully
     }
 
@@ -28,10 +27,41 @@ int create_directory(const char *path) {
     return -1;  // Error creating the folder
 }
 
+void set_text_color(int color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
+void print_ascii_art() {
+    set_text_color(14);  // Yellow (for ASCII art)
+
+    printf("\n");
+    printf("*  ##  ##   ##  ##   ##  ##   ##  ##   ##  ##             ####     ####    ##  ##   #####     ####  *\n");
+    printf("*  ##  ##   ### ##   ## ##    ### ##            ##  ##   ##  ##   ##  ##   ##  ##   ##  ##   ##  ## *\n");
+    printf("*  ##  ##   ######   ####     ######            ##       ## ###   ##  ##   ##  ##   ##           ## *\n");
+    printf("*  ##  ##   ######   ###      ######   ######    ####    ### ##   ##  ##   #####    ##         ### *\n");
+    printf("*  ##  ##   ## ###   ####     ## ###                ##   ##  ##   ##  ##   ####     ##           ## *\n");
+    printf("*  ##  ##   ##  ##   ## ##    ##  ##            ##  ##   ##  ##   ##  ##   ## ##    ##  ##   ##  ## *\n");
+    printf("*   ####    ##  ##   ##  ##   ##  ##             ####     ####     ####    ##  ##    ####     #### *\n");
+    printf("-----------------------------------------------------------------------------------------------------\n");
+    printf("Author: unkn-s0urc3\n");
+    printf("Project: dirCreator\n");
+    printf("Description: This project provides a simple tool that allows you to create a predefined folder\n"
+           "structure on a Windows system\n");
+    printf("-----------------------------------------------------------------------------------------------------\n\n");
+
+    set_text_color(7);  // Reset to default color (white)
+}
+
 int main(int argc, char *argv[]) {
+    // Print the ASCII art at the start
+    print_ascii_art();
+
     // Check if the user provided a path
     if (argc < 2) {
+        set_text_color(4);  // Red for error
         printf("Please provide the base path as an argument.\n");
+        set_text_color(7);  // Reset to default
         return 1;  // Exit the program if no path was provided
     }
 
@@ -56,7 +86,15 @@ int main(int argc, char *argv[]) {
         snprintf(folder_path, sizeof(folder_path), "%s\\%s", base_path, main_folders[i]);
 
         // Create the folder
-        create_directory(folder_path);
+        if (create_directory(folder_path) == 1) {
+            set_text_color(2);  // Green for success
+            printf("Directory '%s' created successfully!\n\n", folder_path);
+            set_text_color(7);  // Reset to default
+        } else {
+            set_text_color(4);  // Red for error
+            printf("Error creating directory '%s'.\n\n", folder_path);
+            set_text_color(7);  // Reset to default
+        }
     }
 
     // If the Documents folder was successfully created, create the subfolders
@@ -68,7 +106,15 @@ int main(int argc, char *argv[]) {
         for (size_t i = 0; i < sizeof(documents_folders) / sizeof(documents_folders[0]); i++) {
             char folder_path[512];
             snprintf(folder_path, sizeof(folder_path), "%s\\%s\\%s", base_path, "Documents", documents_folders[i]);
-            create_directory(folder_path);
+            if (create_directory(folder_path) == 1) {
+                set_text_color(2);  // Green for success
+                printf("Directory '%s' created successfully!\n\n", folder_path);
+                set_text_color(7);  // Reset to default
+            } else {
+                set_text_color(4);  // Red for error
+                printf("Error creating directory '%s'.\n\n", folder_path);
+                set_text_color(7);  // Reset to default
+            }
         }
     }
 
@@ -81,7 +127,15 @@ int main(int argc, char *argv[]) {
         for (size_t i = 0; i < sizeof(media_folders) / sizeof(media_folders[0]); i++) {
             char folder_path[512];
             snprintf(folder_path, sizeof(folder_path), "%s\\%s\\%s", base_path, "Media", media_folders[i]);
-            create_directory(folder_path);
+            if (create_directory(folder_path) == 1) {
+                set_text_color(2);  // Green for success
+                printf("Directory '%s' created successfully!\n\n", folder_path);
+                set_text_color(7);  // Reset to default
+            } else {
+                set_text_color(4);  // Red for error
+                printf("Error creating directory '%s'.\n\n", folder_path);
+                set_text_color(7);  // Reset to default
+            }
         }
     }
 
