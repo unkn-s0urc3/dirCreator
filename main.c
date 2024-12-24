@@ -46,7 +46,7 @@ void print_ascii_art() {
     printf("|*   ####    ##  ##   ##  ##   ##  ##             ####     ####     ####    ##  ##    ####     ####   *|\n");
     printf("|------------------------------------------------------------------------------------------------------|\n");
     printf("|Author: unkn-s0urc3                                                                                   |\n");
-    printf("|Project: dircreator                                                                                  |\n");
+    printf("|Project: dircreator                                                                                   |\n");
     printf("|Description: This project provides a simple tool that allows you to create a predefined folder        |\n"
            "|structure on a Windows system                                                                         |\n");
     printf("|------------------------------------------------------------------------------------------------------|\n\n");
